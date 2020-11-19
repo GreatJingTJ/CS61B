@@ -31,11 +31,38 @@ public class NBody{
     }
 
     public static void main(String [] args){
-        if(args.length() == 3){
-            double T = Double.parseDouble(args[0]), dt = Double.parseDouble(arhs[1]);
+        if(args.length == 3){
+            double T = Double.parseDouble(args[0]), dt = Double.parseDouble(args[1]);
             String filename = args[2];
-            double r = this.readRadius(filename);
-            Planet [] arrayPlanet = this.readPlanets(filename);
+            double r = readRadius(filename);
+            Planet [] arrayPlanet = readPlanets(filename);
+
+            StdDraw.enableDoubleBuffering();
+            
+            
+            for(int i = 0; i < T; i += dt){
+                double [] xForcesArray = new double[arrayPlanet.length], yForecesArray = new double[arrayPlanet.length];
+                for(int j = 0; j < arrayPlanet.length; j++){
+                    xForcesArray[j] = arrayPlanet[j].calcNetForceExertedByX(arrayPlanet);
+                    yForecesArray[j] = arrayPlanet[j].calcNetForceExertedByY(arrayPlanet);
+                }
+
+                for(int j = 0; j < arrayPlanet.length; j++){
+                    arrayPlanet[j].update(i, xForcesArray[j], yForecesArray[j]);
+                }
+
+                for(Planet planet : arrayPlanet){
+                    StdDraw.setScale(-r, r);
+                    String backgroundimg = "images/starfield.jpg";
+                    StdDraw.clear();
+                    StdDraw.picture(0, 0, backgroundimg);
+                    planet.draw();
+                    StdDraw.show();
+                    
+                    StdDraw.pause(10);
+                }
+
+            }
         }
     }
 
