@@ -61,7 +61,14 @@ public class NBody{
                     
                     StdDraw.pause(10);
                 }
+            }
 
+            StdOut.printf("%d\n", arrayPlanet.length);
+            StdOut.printf("%.2e\n", r);
+            for (int i = 0; i < arrayPlanet.length; i++) {
+                StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+                arrayPlanet[i].xxPos, arrayPlanet[i].yyPos, arrayPlanet[i].xxVel,
+                arrayPlanet[i].yyVel, arrayPlanet[i].mass, arrayPlanet[i].imgFileName);   
             }
         }
     }
