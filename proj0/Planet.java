@@ -94,4 +94,10 @@ public class Planet {
         return 0;
     }
 
+    public void draw(){
+        String path = "images/" + this.imgFileName;
+        StdDraw.picture(this.xxPos, this.yyPos, path);
+        StdDraw.show();
+    }
+
 }
