@@ -4,7 +4,7 @@ public class Planet {
 
     public double xxPos = 0, yyPos = 0, xxVel = 0, yyVel = 0, mass = 0;
     public String imgFileName = "";
-    static final double g = 6.67e-11;
+    private static final double g = 6.67e-11;
     public Planet(double xP, double yP, double xV, double yV, double m, String img){
         this.xxPos = xP;
         this.yyPos = yP;
@@ -38,19 +38,18 @@ public class Planet {
     public double calcForceExertedByX(Planet p2){
         double r2 = Math.pow(this.xxPos - p2.xxPos, 2) + Math.pow(this.yyPos - p2.yyPos, 2);
         double f = g * this.mass * p2.mass / r2;
+        double dx = p2.xxPos - this.xxPos;
+         
         
-        double bigger = Math.max(this.xxPos, p2.xxPos), smaller = Math.min(this.xxPos, p2.xxPos);
-        
-        return f * (bigger - smaller) / Math.sqrt(r2);
+        return f * dx / Math.sqrt(r2);
     }
 
     public double calcForceExertedByY(Planet p2){
         double r2 = Math.pow(this.xxPos - p2.xxPos, 2) + Math.pow(this.yyPos - p2.yyPos, 2);
         double f = g * this.mass * p2.mass / r2;
+        double dy = p2.yyPos - this.yyPos;
         
-        double bigger = Math.max(this.yyPos, p2.yyPos), smaller = Math.min(this.yyPos, p2.yyPos);
-
-        return f *(bigger - smaller) / Math.sqrt(r2);
+        return f * dy/ Math.sqrt(r2);
     }
 
     public void update(double time, double fx, double fy){
@@ -90,7 +89,7 @@ public class Planet {
         return sum;
     }
 
-    public double CalcNetForceExertedByXY(Planet[] arrayPlanet){
+    private double CalcNetForceExertedByXY(Planet[] arrayPlanet){
         return 0;
     }
 
