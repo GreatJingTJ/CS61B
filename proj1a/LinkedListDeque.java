@@ -1,5 +1,3 @@
-package week2;
-
 public class LinkedListDeque <T> {
     private int size;
     private T type;
