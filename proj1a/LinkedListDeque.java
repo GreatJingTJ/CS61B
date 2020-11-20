@@ -1,3 +1,5 @@
+package week2;
+
 public class LinkedListDeque <T> {
     private int size;
     private T type;
@@ -21,10 +23,11 @@ public class LinkedListDeque <T> {
 
     public static void main(String[] args){
         LinkedListDeque<Integer> mylist = new LinkedListDeque<>();
-        mylist.addFirst(1);
+        System.out.print(mylist.isEmpty());
+        mylist.addLast(1);
 
-        mylist.removeLast();
-        mylist.addLast(2);
+        mylist.removeFirst();
+
         LinkedListDeque<Integer> mylist2 = new LinkedListDeque<>(mylist);
         mylist2.printDeque();
     }
@@ -59,6 +62,11 @@ public class LinkedListDeque <T> {
     public T removeFirst(){
         if(size == 0){
             return null;
+        } else if(size == 1){
+            T val = firstEmptyNode.next.val;
+            firstEmptyNode.next = null;
+            this.size -= 1;
+            return val;
         }
         T val = firstEmptyNode.next.val;
         firstEmptyNode.next = firstEmptyNode.next.next;
@@ -70,6 +78,9 @@ public class LinkedListDeque <T> {
     public T removeLast(){
         if(size == 0){
             return null;
+        } else if(size == 1){
+            this.size -= 1;
+            return this.removeFirst();
         }
         T val = lastEmptyNode.prev.val;
         lastEmptyNode.prev = lastEmptyNode.prev.prev;
