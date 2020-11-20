@@ -1,19 +1,19 @@
-public class LinkedListDeque<Type> {
+public class LinkedListDeque<T> {
     private class Node {
-        Type item;
+        T item;
         Node next;
         Node prev;
 
-        Node(Type item, Node next, Node prev) {
+        Node(T item, Node next, Node prev) {
             this.prev = prev;
             this.item = item;
             this.next = next;
         }
     }
 
-    private Type type;
+    private T T;
     private int size;
-    private Node firstNode = new Node(type, null, null), lastNode = new Node(type, null, null);
+    private Node firstNode = new Node(T, null, null), lastNode = new Node(T, null, null);
 
     public LinkedListDeque() {
         this.size = 0;
@@ -22,12 +22,12 @@ public class LinkedListDeque<Type> {
     }
 
 
-    public void addFirst(Type item) {
+    public void addFirst(T item) {
         this.size += 1;
         firstNode.next = new Node(item, firstNode.next, firstNode);
     }
 
-    public void addLast(Type item) {
+    public void addLast(T item) {
         this.size += 1;
         lastNode.prev = new Node(item, lastNode, lastNode.prev);
     }
@@ -40,29 +40,29 @@ public class LinkedListDeque<Type> {
         return this.size;
     }
 
-    public Type removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         } else {
             size -= 1;
-            Type ans = firstNode.item;
+            T ans = firstNode.item;
             firstNode = firstNode.next;
             return ans;
         }
     }
 
-    public Type removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         } else {
             size -= 1;
-            Type ans = lastNode.item;
+            T ans = lastNode.item;
             lastNode = lastNode.prev;
             return ans;
         }
     }
 
-    public Type get(int x) {
+    public T get(int x) {
         if (x > size) {
             return null;
         }
@@ -83,7 +83,7 @@ public class LinkedListDeque<Type> {
         System.out.println("\n");
     }
 
-    private Type recursionHelper(int index, Node node) {
+    private T recursionHelper(int index, Node node) {
         if (index == 0) {
             return node.item;
         } else {
@@ -91,7 +91,7 @@ public class LinkedListDeque<Type> {
         }
     }
 
-    public Type getRecursive(int index) {
+    public T getRecursive(int index) {
         return recursionHelper(index, firstNode.next);
     }
 
@@ -101,7 +101,7 @@ public class LinkedListDeque<Type> {
         lastNode.prev = firstNode;
 
         for (int i = 0; i < size; i++) {
-            this.addLast((Type) other.get(i));
+            this.addLast((T) other.get(i));
         }
 
     }
