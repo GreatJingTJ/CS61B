@@ -1,9 +1,10 @@
-public class LinkedListDeque<Type>{
-    private class Node{
+public class LinkedListDeque<Type> {
+    private class Node {
         Type item;
         Node next;
         Node prev;
-        Node(Type item, Node next, Node prev){
+
+        Node(Type item, Node next, Node prev) {
             this.prev = prev;
             this.item = item;
             this.next = next;
@@ -13,35 +14,36 @@ public class LinkedListDeque<Type>{
     private Type type;
     private int size;
     private Node firstNode = new Node(type, null, null), lastNode = new Node(type, null, null);
-    public LinkedListDeque(){
+
+    public LinkedListDeque() {
         this.size = 0;
         firstNode.next = lastNode;
         lastNode.prev = firstNode;
     }
 
 
-    public void addFirst(Type item){
+    public void addFirst(Type item) {
         this.size += 1;
         firstNode.next = new Node(item, firstNode.next, firstNode);
     }
 
-    public void addLast(Type item){
-         this.size += 1;
-         lastNode.prev = new Node(item, lastNode, lastNode.prev);
+    public void addLast(Type item) {
+        this.size += 1;
+        lastNode.prev = new Node(item, lastNode, lastNode.prev);
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return (this.size == 0);
     }
 
-    public int size(){
+    public int size() {
         return this.size;
     }
 
-    public Type removeFirst(){
-        if(size == 0){
+    public Type removeFirst() {
+        if (size == 0) {
             return null;
-        }else{
+        } else {
             size -= 1;
             Type ans = firstNode.item;
             firstNode = firstNode.next;
@@ -49,10 +51,10 @@ public class LinkedListDeque<Type>{
         }
     }
 
-    public Type removeLast(){
-        if(size == 0){
+    public Type removeLast() {
+        if (size == 0) {
             return null;
-        }else{
+        } else {
             size -= 1;
             Type ans = lastNode.item;
             lastNode = lastNode.prev;
@@ -60,58 +62,55 @@ public class LinkedListDeque<Type>{
         }
     }
 
-    public Type getIndex(int x){
-        if(x > size){
+    public Type getIndex(int x) {
+        if (x > size) {
             return null;
         }
         Node node = firstNode.next;
-        for(int i = 0; i < x; i++){
+        for (int i = 0; i < x; i++) {
             node = node.next;
         }
         return node.item;
     }
 
-    public void printDeque(){
+    public void printDeque() {
         Node node = firstNode.next;
-        while(node.next!= null){
+        while (node.next != null) {
             System.out.print(node.item + " ");
             node = node.next;
         }
         System.out.println("\n");
     }
 
-    private Type recursionHelper(int index, Node node){
-        if(index == 0){
+    private Type recursionHelper(int index, Node node) {
+        if (index == 0) {
             return node.item;
-        }else{
-            return recursionHelper(index-1, node.next);
+        } else {
+            return recursionHelper(index - 1, node.next);
         }
     }
 
-    public Type getRecursive(int index){
+    public Type getRecursive(int index) {
         return recursionHelper(index, firstNode.next);
     }
 
-    public LinkedListDeque(LinkedListDeque other){
+    public LinkedListDeque(LinkedListDeque other) {
         int size = other.size();
         this.size = 0;
         firstNode.next = lastNode;
         lastNode.prev = firstNode;
 
-        for(int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             this.addLast((Type) other.getIndex(i));
         }
 
     }
 
 
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
 
     }
-
-
 
 
 }
