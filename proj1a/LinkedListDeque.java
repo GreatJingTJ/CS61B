@@ -71,6 +71,15 @@ public class LinkedListDeque<Type>{
         return node.item;
     }
 
+    public void printDeque(){
+        Node node = firstNode.next;
+        while(node.next!= null){
+            System.out.print(node.item + " ");
+            node = node.next;
+        }
+        System.out.println("\n");
+    }
+
     private Type recursionHelper(int index, Node node){
         if(index == 0){
             return node.item;
@@ -88,26 +97,20 @@ public class LinkedListDeque<Type>{
         this.size = 0;
         firstNode.next = lastNode;
         lastNode.prev = firstNode;
-        
+
         for(int i = 0; i < size; i++){
             this.addLast((Type) other.getIndex(i));
         }
 
     }
 
+
+
     public static void main(String[] args){
 
 
     }
 
-     public void printDeque(){
-        Node node = firstNode.next;
-        while(node.next != null){
-            System.out.print(node.item + " ");
-            node = node.next;
-        }
-        System.out.println("\n");
-    }
 
 
 
