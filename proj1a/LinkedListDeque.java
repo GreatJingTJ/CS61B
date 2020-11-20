@@ -1,113 +1,119 @@
-public class LinkedListDeque<T> {
-    private class Node {
-        T item;
+public class LinkedListDeque <T> {
+    private class Node{
+        T val;
         Node next;
         Node prev;
-
-        Node(T item, Node next, Node prev) {
-            this.prev = prev;
-            this.item = item;
+        Node(Node prev, T val, Node next){
+            this.val = val;
             this.next = next;
+            this.prev = prev;
         }
     }
 
-    private T T;
     private int size;
-    private Node firstNode = new Node(T, null, null), lastNode = new Node(T, null, null);
+    private T type;
+    private Node firstEmptyNode = new Node(null, null, null);
+    private Node lastEmptyNode = new Node(null, null, null);
 
-    public LinkedListDeque() {
-        this.size = 0;
-        firstNode.next = lastNode;
-        lastNode.prev = firstNode;
+    private T helper_func(int index, Node node){
+        if(index == 0){
+            return node.val;
+        }
+        return helper_func(index - 1, node.next);
     }
 
+    public LinkedListDeque(){
+        size = 0;
+        firstEmptyNode.next = lastEmptyNode;
+        lastEmptyNode.prev = firstEmptyNode;
+    }
 
-    public void addFirst(T item) {
+    public void addFirst(T item){
+        firstEmptyNode.next = new Node(firstEmptyNode, item, firstEmptyNode.next);
+        firstEmptyNode.next.next.prev = firstEmptyNode.next;
+        if(size == 0){
+            lastEmptyNode.prev = firstEmptyNode.next;
+        }
         this.size += 1;
-        firstNode.next = new Node(item, firstNode.next, firstNode);
     }
 
-    public void addLast(T item) {
+    public void addLast(T item){
+        lastEmptyNode.prev = new Node(lastEmptyNode.prev, item, lastEmptyNode.next);
+        lastEmptyNode.prev.prev.next = lastEmptyNode.prev;
+
+        if(size == 0){
+            firstEmptyNode.next = lastEmptyNode.prev;
+        }
+
         this.size += 1;
-        lastNode.prev = new Node(item, lastNode, lastNode.prev);
     }
 
-    public boolean isEmpty() {
+    public T removeFirst(){
+        T val = firstEmptyNode.next.val;
+        firstEmptyNode.next = firstEmptyNode.next.next;
+        firstEmptyNode.next.prev = firstEmptyNode;
+        this.size -= 1;
+        return val;
+    }
+
+    public T removeLast(){
+        T val = lastEmptyNode.prev.val;
+        lastEmptyNode.prev = lastEmptyNode.prev.prev;
+        lastEmptyNode.prev.next = lastEmptyNode;
+        this.size -= 1;
+        return val;
+    }
+
+    public void printDeque(){
+        Node node = firstEmptyNode.next;
+
+        while(node != null && node.val != null){
+            System.out.print(node.val + " ");
+            node = node.next;
+        }
+        System.out.print("\n");
+    }
+
+    public T get(int x){
+        Node node = firstEmptyNode.next;
+
+        for(int i = 0; i < x; i++){
+            node = node.next;
+        }
+        return node.val;
+    }
+
+
+    public T getRecursive(int index){
+        return helper_func(index, firstEmptyNode.next);
+    }
+
+    public boolean isEmpty(){
         return (this.size == 0);
     }
-    
+
     public int size() {
         return this.size;
     }
 
-    public T removeFirst() {
-        if (size == 0) {
-            return null;
-        } else {
-            size -= 1;
-            T ans = firstNode.item;
-            firstNode = firstNode.next;
-            return ans;
+    public LinkedListDeque(LinkedListDeque other){
+        size = 0;
+        firstEmptyNode.next = lastEmptyNode;
+        lastEmptyNode.prev = firstEmptyNode;
+
+        for(int i = 0; i < other.size(); i++){
+            this.addLast((T)other.get(i));
         }
     }
 
-    public T removeLast() {
-        if (size == 0) {
-            return null;
-        } else {
-            size -= 1;
-            T ans = lastNode.item;
-            lastNode = lastNode.prev;
-            return ans;
+    public static void main(String[] args){
+        LinkedListDeque<Integer> mylist = new LinkedListDeque<>();
+        for(int i = 0; i < 10; i++){
+            mylist.addLast(i);
         }
-    }
+        LinkedListDeque<Integer> mylist2 = new LinkedListDeque<>(mylist);
+        mylist2.printDeque();
 
-    public T get(int x) {
-        if (x > size) {
-            return null;
-        }
-        Node node = firstNode.next;
-
-        for (int i = 0; i < x; i++) {
-            node = node.next;
-        }
-        return node.item;
-    }
-
-    public void printDeque() {
-        Node node = firstNode.next;
-        while (node.next != null) {
-            System.out.print(node.item + " ");
-            node = node.next;
-        }
-        System.out.println("\n");
-    }
-
-    private T recursionHelper(int index, Node node) {
-        if (index == 0) {
-            return node.item;
-        } else {
-            return recursionHelper(index - 1, node.next);
-        }
-    }
-
-    public T getRecursive(int index) {
-        return recursionHelper(index, firstNode.next);
-    }
-
-    public LinkedListDeque(LinkedListDeque other) {
-        this.size = other.size();
-        firstNode.next = lastNode;
-        lastNode.prev = firstNode;
-
-        for (int i = 0; i < size; i++) {
-            this.addLast((T) other.get(i));
-        }
-
-    }
-
-
-    public static void main(String[] args) {
 
 
     }
