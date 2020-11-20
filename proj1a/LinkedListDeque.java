@@ -101,7 +101,7 @@ public class LinkedListDeque<Type> {
         lastNode.prev = firstNode;
 
         for (int i = 0; i < size; i++) {
-            this.addLast((Type) other.getIndex(i));
+            this.addLast((Type) other.get(i));
         }
 
     }
