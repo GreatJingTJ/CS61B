@@ -36,6 +36,7 @@ public class LinkedListDeque<Type> {
     public boolean isEmpty() {
         return (this.size == 0);
     }
+    
     public int size() {
         return this.size;
     }
@@ -67,6 +68,7 @@ public class LinkedListDeque<Type> {
             return null;
         }
         Node node = firstNode.next;
+
         for (int i = 0; i < x; i++) {
             node = node.next;
         }
