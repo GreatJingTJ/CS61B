@@ -66,6 +66,7 @@ public class LinkedListDeque<Type> {
         if (x > size) {
             return null;
         }
+
         Node node = firstNode.next;
         for (int i = 0; i < x; i++) {
             node = node.next;
@@ -95,8 +96,7 @@ public class LinkedListDeque<Type> {
     }
 
     public LinkedListDeque(LinkedListDeque other) {
-        int size = other.size();
-        this.size = 0;
+        this.size = other.size();
         firstNode.next = lastNode;
         lastNode.prev = firstNode;
 
