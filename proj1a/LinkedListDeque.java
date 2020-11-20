@@ -1,3 +1,4 @@
+
 public class LinkedListDeque<Type> {
     private class Node {
         Type item;
@@ -35,7 +36,6 @@ public class LinkedListDeque<Type> {
     public boolean isEmpty() {
         return (this.size == 0);
     }
-
     public int size() {
         return this.size;
     }
@@ -62,11 +62,10 @@ public class LinkedListDeque<Type> {
         }
     }
 
-    public Type getIndex(int x) {
+    public Type get(int x) {
         if (x > size) {
             return null;
         }
-
         Node node = firstNode.next;
         for (int i = 0; i < x; i++) {
             node = node.next;
