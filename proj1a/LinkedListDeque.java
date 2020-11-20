@@ -76,9 +76,6 @@ public class LinkedListDeque <T> {
     public T removeLast(){
         if(size == 0){
             return null;
-        } else if(size == 1){
-            this.size -= 1;
-            return this.removeFirst();
         }
         T val = lastEmptyNode.prev.val;
         lastEmptyNode.prev = lastEmptyNode.prev.prev;
