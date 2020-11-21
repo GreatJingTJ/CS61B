@@ -19,7 +19,7 @@ public class LinkedListDeque<T> {
         }
     }
 
-    private static void main(String[] args){
+    public static void main(String[] args){
         LinkedListDeque<Integer> mylist = new LinkedListDeque<>();
         System.out.print(mylist.isEmpty());
         mylist.addFirst(1);
