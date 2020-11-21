@@ -1,29 +1,31 @@
-public class LinkedListDeque <T> {
+public class LinkedListDeque<T> {
     private int size;
     private T type;
     private Node firstEmptyNode = new Node(null, null, null);
     private Node lastEmptyNode = new Node(null, null, null);
-    public LinkedListDeque(){
+    public LinkedListDeque() {
         size = 0;
         firstEmptyNode.next = lastEmptyNode;
         lastEmptyNode.prev = firstEmptyNode;
     }
 
-    public LinkedListDeque(LinkedListDeque other){
+    private LinkedListDeque(LinkedListDeque other) {
         size = 0;
         firstEmptyNode.next = lastEmptyNode;
         lastEmptyNode.prev = firstEmptyNode;
 
-        for(int i = 0; i < other.size(); i++){
+        for (int i = 0; i < other.size(); i++){
             this.addLast((T)other.get(i));
         }
     }
 
-    public static void main(String[] args){
+    private static void main(String[] args){
         LinkedListDeque<Integer> mylist = new LinkedListDeque<>();
         System.out.print(mylist.isEmpty());
         mylist.addFirst(1);
         mylist.removeFirst();
+        mylist.addFirst(2);
+        mylist.addFirst(3);
         mylist.addFirst(2);
         LinkedListDeque<Integer> mylist2 = new LinkedListDeque<>(mylist);
         mylist2.printDeque();
@@ -36,7 +38,7 @@ public class LinkedListDeque <T> {
         return helper_func(index - 1, node.next);
     }
 
-    public void addFirst(T item){
+    public void addFirst(T item) {
         firstEmptyNode.next = new Node(firstEmptyNode, item, firstEmptyNode.next);
         if(firstEmptyNode.next.next != null) {
             firstEmptyNode.next.next.prev = firstEmptyNode.next;
