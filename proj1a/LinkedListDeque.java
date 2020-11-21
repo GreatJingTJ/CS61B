@@ -22,10 +22,9 @@ public class LinkedListDeque <T> {
     public static void main(String[] args){
         LinkedListDeque<Integer> mylist = new LinkedListDeque<>();
         System.out.print(mylist.isEmpty());
-        mylist.addLast(1);
-
+        mylist.addFirst(1);
         mylist.removeFirst();
-
+        mylist.addFirst(2);
         LinkedListDeque<Integer> mylist2 = new LinkedListDeque<>(mylist);
         mylist2.printDeque();
     }
@@ -39,7 +38,9 @@ public class LinkedListDeque <T> {
 
     public void addFirst(T item){
         firstEmptyNode.next = new Node(firstEmptyNode, item, firstEmptyNode.next);
-        firstEmptyNode.next.next.prev = firstEmptyNode.next;
+        if(firstEmptyNode.next.next != null) {
+            firstEmptyNode.next.next.prev = firstEmptyNode.next;
+        }
         if(size == 0){
             lastEmptyNode.prev = firstEmptyNode.next;
         }
