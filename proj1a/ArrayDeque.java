@@ -47,6 +47,9 @@ public class ArrayDeque <T> {
     }
 
     public T removeFirst(){
+        if(this.size == 0){
+            return null;
+        }
         T ans = this.array[0];
         System.arraycopy(this.array,1, this.array, 0, this.array.length - 1);
         this.size -= 1;
@@ -54,7 +57,11 @@ public class ArrayDeque <T> {
     }
 
     public T removeLast(){
+        if(this.size == 0){
+            return null;
+        }
         T ans = this.array[this.size - 1];
+        System.arraycopy(this.array, 0, this.array, 0, this.array.length - 1);
         this.size -= 1;
         return ans;
     }
@@ -75,7 +82,7 @@ public class ArrayDeque <T> {
         this.array = (T[]) new Object[8];
         this.size = 0;
     }
-    public ArrayDeque(ArrayDeque other){
+    private ArrayDeque(ArrayDeque other){
 
         this.array = (T[]) new Object[other.size()];
         this.size = 0;
