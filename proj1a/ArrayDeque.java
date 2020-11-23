@@ -1,6 +1,7 @@
 public class ArrayDeque<T> {
     private T[] array;
     private int size;
+    private int start_pos, end_pos;
 
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
@@ -12,13 +13,12 @@ public class ArrayDeque<T> {
         if (this.size == array.length) {
             this.resize(this.size + 1);
         }
-        if (this.size == 0) {
-            this.array[0] = item;
-            this.size += 1;
-            return;
+        if(this.start_pos - 1 == -1){
+            this.start_pos = this.array.length;
         }
-        System.arraycopy(this.array, 0, this.array, 1, this.array.length - 1);
-        this.array[0] = item;
+        this.start_pos -= 1;
+        this.array[this.start_pos] = item;
+
         this.size += 1;
     }
 
@@ -26,7 +26,11 @@ public class ArrayDeque<T> {
         if (this.size == this.array.length) {
             this.resize(this.size + 1);
         }
-        this.array[this.size] = item;
+        if(this.end_pos + 1 == this.array.length){
+            this.end_pos = 0;
+        }
+        this.array[this.end_pos] = item;
+        this.end_pos += 1;
         this.size += 1;
     }
 
@@ -50,42 +54,72 @@ public class ArrayDeque<T> {
         if (this.size == 0) {
             return null;
         }
-        T ans = this.array[0];
-        System.arraycopy(this.array, 1, this.array, 0, this.array.length - 1);
+        if(this.start_pos == this.array.length){
+            this.start_pos = 0;
+        }
+
+        T ans = this.array[this.start_pos];
+        if(this.start_pos + 1 <= this.array.length){
+            this.start_pos += 1;
+        }
+
         this.size -= 1;
-        return ans;
+       return ans;
     }
 
     public T removeLast() {
         if (this.size == 0) {
             return null;
         }
-        T ans = this.array[this.size - 1];
-        System.arraycopy(this.array, 0, this.array, 0, this.array.length - 1);
+        T ans;
+        if(this.end_pos == 0){
+            this.end_pos = this.array.length - 1;
+            ans = this.array[this.end_pos];
+        } else {
+            ans = this.array[this.end_pos - 1];
+        }
+        this.end_pos -= 1;
         this.size -= 1;
         return ans;
     }
 
     private void printD() {
+        if (start_pos < end_pos ) {
+            for (int i = this.start_pos; i < this.end_pos; i++) {
+                System.out.print(this.array[i] + " ");
+            }
+        } else {
+            for (int i = this.start_pos; i < this.array.length; i++) {
+                System.out.print(this.array[i] + " ");
+            }
 
-        for (int i = 0; i < this.size; i++) {
-
-            System.out.print(this.array[i] + " ");
+            for (int i = 0; i < this.end_pos; i++) {
+                System.out.print(this.array[i] + " ");
+            }
         }
+        System.out.print("\n");
     }
 
+
     public T get(int index) {
-        return this.array[index];
+        if(start_pos < end_pos){
+            return this.array[this.start_pos + index];
+        }else{
+            return this.array[this.array.length - this.start_pos + index];
+        }
     }
 
     public ArrayDeque() {
         this.array = (T[]) new Object[8];
         this.size = 0;
+        this.start_pos = 8;
+        this.end_pos = 0;
     }
 
     private ArrayDeque(ArrayDeque other) {
-
-        this.array = (T[]) new Object[other.size()];
+        this.start_pos = 8;
+        this.end_pos = 0;
+        this.array = (T[]) new Object[8];
         this.size = 0;
 
         for (int i = 0; i < other.size(); i++) {
@@ -97,10 +131,11 @@ public class ArrayDeque<T> {
         ArrayDeque<Integer> mylist = new ArrayDeque<>();
 
         for (int i = 0; i < 5; i++) {
-            mylist.addFirst(i);
+            mylist.addLast(i);
         }
+        mylist.printD();
         ArrayDeque<Integer> mylist2 = new ArrayDeque<>(mylist);
-        mylist2.removeFirst();
+        mylist2.removeLast();
         mylist2.printD();
     }
 }
