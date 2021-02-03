@@ -3,7 +3,7 @@ public class LinkedListDeque<T> {
     private  Node last;
     private int size;
 
-    public static void main(String[] args) {
+    private static void main(String[] args) {
 
     }
     
