@@ -3,10 +3,6 @@ public class LinkedListDeque<T> {
     private final Node last;
     private int size;
 
-    public static void main(String[] args) {
-
-    }
-    
     public LinkedListDeque() {
         T item = null;
         first = new Node(null, null, null);
@@ -24,6 +20,10 @@ public class LinkedListDeque<T> {
         for (int i = 0; i < other.size(); i++) {
             this.addLast((T) other.get(i));
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 
     public int size() {
