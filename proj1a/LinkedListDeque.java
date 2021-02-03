@@ -1,9 +1,9 @@
 public class LinkedListDeque<T> {
-    private  Node first;
-    private  Node last;
+    private final Node first;
+    private final Node last;
     private int size;
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
 
     }
     
@@ -63,7 +63,7 @@ public class LinkedListDeque<T> {
         return this.size == 0;
     }
 
-    public T removeFist() {
+    public T removeFirst() {
         if (this.size == 0) {
             return null;
         } else if (this.size == 1) {
