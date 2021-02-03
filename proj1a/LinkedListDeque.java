@@ -1,6 +1,6 @@
 public class LinkedListDeque<T> {
-    private final Node first;
-    private final Node last;
+    private  Node first;
+    private  Node last;
     private int size;
 
     public static void main(String[] args) {
