@@ -29,7 +29,7 @@ public class ArrayDeque<T> {
     }
 
     private void resize(int n) {
-        T[] newarray = (T[]) new Object[n];
+        T[] newarray = (T[]) new Object[n * 2];
         System.arraycopy(array, 0, newarray, 0, array.length);
         this.array = newarray;
     }
